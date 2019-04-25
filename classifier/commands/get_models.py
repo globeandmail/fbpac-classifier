@@ -2,8 +2,12 @@
 Downloads existing classifiers
 """
 import click
-from classifier.utilities import ( confs )
+import boto3
+from classifier.utilities import confs
 from subprocess import call
+
+s3 = boto3.client("s3")
+
 
 @click.option("--lang", help="Limit to language")
 @click.command("get_models")
@@ -14,6 +18,12 @@ def get_models(ctx, lang):
     """
     for (directory, conf) in confs(ctx.obj["base"]):
         if lang and conf["language"] != lang:
-            continue 
+            continue
         model_path = "data/{}/classifier.dill".format(conf["language"])
-        call(["wget", "-nv", "-O", model_path, "https://s3.amazonaws.com/pp-data/fbpac-models/{}/classifier.dill".format(conf["language"])])
+        # call(["wget", "-nv", "-O", model_path, "https://s3.amazonaws.com/pp-data/fbpac-models/{}/classifier.dill".format(conf["language"])])
+        s3.download_file(
+            "tgam-fbpac-models",
+            "{}/classifier.dill".format(conf["language"]),
+            "data/{}/classifier.dill".format(conf["language"]),
+        )
+

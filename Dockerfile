@@ -1,7 +1,7 @@
 FROM python:3.6
 
 ENV SHELL /bin/bash
-RUN pip install pipenv
+RUN pip install pipenv boto3
 RUN apt-get update && apt-get install -y wget
 COPY . /web
 WORKDIR /web

@@ -1,4 +1,4 @@
-FROM python:3.6.3
+FROM python:3.6
 
 ENV SHELL /bin/bash
 RUN pip install pipenv

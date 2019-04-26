@@ -7,7 +7,6 @@ WORKDIR /web
 
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt && \
-    chmod +x run.sh && \
-    chmod +x classify
+    chmod +x run.sh classify
 
 CMD ./run.sh

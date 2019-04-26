@@ -15,7 +15,7 @@ for langCode in "en-US" "lv-LV" "es-MX" "de-AT" "en-CA" \
                 "nl-NL" "ka-GE"
 do
 echo "Running weekly training for $langCode"
-./classify build --lang $langCode >> /tmp/model_build.log
+./classify build --lang $langCode | tee -a /tmp/model_build.log
 done
 ./upload_trained_models.py
 else

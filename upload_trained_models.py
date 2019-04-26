@@ -2,6 +2,7 @@
 
 import boto3
 from datetime import datetime
+import os
 
 s3 = boto3.client("s3")
 
@@ -32,9 +33,13 @@ filename = "classifier.dill"
 for lang in dirs:
     Filename = f"data/{lang}/{filename}"
     Key = f"weekly/{lang}/{filename}"
-    print(f"Uploading {Key} to S3")
-    s3.upload_file(Filename, Bucket, Key)
-
+    exists = os.path.isfile(Filename)
+    if exists:
+        print(f"Uploading {Key} to S3")
+        s3.upload_file(Filename, Bucket, Key)
+    else:
+        print(f"{Filename} not found")
+    
 date = datetime.today().strftime('%Y-%m-%d')
 
 logfile = "model_build.log"

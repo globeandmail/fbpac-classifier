@@ -3,12 +3,12 @@ version: 0.2
 env:
   variables:
     IMAGE_TAG: "latest"
-    AWS_ACCOUNT_ID: "040062179569"
     IMAGE_REPO_NAME: "facebook-ads-classify"
 
 phases:
   pre_build:
     commands:
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - export DATE_TAG=$IMAGE_TAG-$(date +%Y-%m-%d-%H%m%S)

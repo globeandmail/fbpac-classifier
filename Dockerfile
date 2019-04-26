@@ -6,9 +6,8 @@ COPY . /web
 WORKDIR /web
 
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt 
+    pip install -r requirements.txt && \
+    chmod +x run.sh && \
+    chmod +x classify
 
-CMD ./classify get_models && \
-    ./classify classify && \
-    ./classify entities && \
-    ./classify listbuilding_fundraising_classify
+CMD ./run.sh

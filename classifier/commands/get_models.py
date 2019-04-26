@@ -21,10 +21,11 @@ def get_models(ctx, lang):
             continue
         model_path = "data/{}/classifier.dill".format(conf["language"])
         # call(["wget", "-nv", "-O", model_path, "https://s3.amazonaws.com/pp-data/fbpac-models/{}/classifier.dill".format(conf["language"])])
-        result = s3.download_file(
+        s3.download_file(
             "tgam-fbpac-models",
             "{}/classifier.dill".format(conf["language"]),
             "data/{}/classifier.dill".format(conf["language"]),
         )
-        print(result)
+        print(str("{}/classifier.dill".format(conf["language"])))
+        print(str("data/{}/classifier.dill".format(conf["language"])))
 

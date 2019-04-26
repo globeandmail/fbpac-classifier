@@ -8,6 +8,10 @@ s3 = boto3.client("s3")
 
 Bucket = "tgam-fbpac-models"
 
+"""
+Full list to be enabled at a later date.
+"""
+"""
 dirs = [
     "en-US",
     "lv-LV",
@@ -26,6 +30,11 @@ dirs = [
     "de-CH",
     "nl-NL",
     "ka-GE",
+]
+"""
+
+dirs = [
+    "en-US", "en-CA", "fr-CA",
 ]
 
 filename = "classifier.dill"

@@ -2,7 +2,7 @@
 
 This is the classifier for the [Facebook Political Ad Collector](https://github.com/globeandmail/facebook-political-ads/). For a full breakdown of the other services you'll need to deploy the app, see the [README for our main repo](https://github.com/globeandmail/facebook-political-ads/blob/master/README.md).
 
-We train the classifier using python and scikit learn and the source is in `backend/classifier/`. We're using [pipenv](https://docs.pipenv.org/) to track dependencies.
+We train the classifier using python and scikit learn. We're using [pipenv](https://docs.pipenv.org/) to track dependencies.
 
 There are three parts to the classifier:
 - **hourly classifier**: classifies newly-received ads on an hourly basis. It'll classify any ads with a political_probability of exactly `0`.

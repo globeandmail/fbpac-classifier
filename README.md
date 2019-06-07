@@ -4,9 +4,8 @@ This is the classifier for the [Facebook Political Ad Collector](https://github.
 
 We train the classifier using python and scikit learn. We're using [pipenv](https://docs.pipenv.org/) to track dependencies.
 
-There are three parts to the classifier:
-- **hourly classifier**: classifies newly-received ads on an hourly basis. It'll classify any ads with a political_probability of exactly `0`.
-- **daily classifier**:
+There are two parts to the classifier:
+- **hourly classifier**: classifies newly-received ads on an hourly basis. It'll classify any ads with a political_probability of exactly `0` — in other words, ads that have never been classified before.
 - **weekly classifier**:
 
 

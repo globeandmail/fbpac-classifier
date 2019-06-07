@@ -23,7 +23,7 @@ pipenv install
 pipenv shell
 ```
 
-We used to use seeds collceted via the Facebook API to build the model, but that hasn't worked for more than a year. To seed the classifier, provide examples of political ad texts and non-political ad texts, following the formats in data/en-US/seeds.json. You might gather these from Facebook's ad library (if it exists in your country) or from tweets.
+We used to use seeds collceted via the Facebook API to build the model, but that hasn't worked for more than a year. To seed the classifier, provide examples of political ad texts and non-political ad texts, following the formats in [`data/en-US/seeds.json`](https://github.com/globeandmail/fbpac-classifier/blob/master/data/en-US/seeds.json). You might gather these from Facebook's ad library (if it exists in your country) or from tweets.
 
 Otherwise, building the model now would just on votes in the extension and suppressions in the admin, which would take much, much longer.
 

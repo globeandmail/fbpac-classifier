@@ -1,12 +1,12 @@
 # fbpac-classifier
 
-This is the classifier for the [Facebook Political Ad Collector](https://github.com/globeandmail/facebook-political-ads/). For a full breakdown of the other services you'll need to deploy the app, see the [README for our main repo](https://github.com/globeandmail/facebook-political-ads/blob/master/README.md).
+This is the model and classifier for the [Facebook Political Ad Collector](https://github.com/globeandmail/facebook-political-ads/). For a full breakdown of the other services you'll need to deploy the app, see the [README for our main repo](https://github.com/globeandmail/facebook-political-ads/blob/master/README.md).
 
-We train the classifier using python and scikit learn. We're using [pipenv](https://docs.pipenv.org/) to track dependencies.
+We train the model using python and scikit learn. We're using [pipenv](https://docs.pipenv.org/) to track dependencies.
 
-There are two parts to the classifier:
+There are two parts to this repo:
 - **hourly classifier**: classifies newly-received ads on an hourly basis. It'll classify any ads with a political_probability of exactly `0` — in other words, ads that have never been classified before.
-- **weekly classifier**:
+- **weekly model re-trainer**: re-trains the model that classifies future ads based on political/non-political votes received from users.
 
 
 ### Installation
@@ -23,13 +23,11 @@ pipenv install
 pipenv shell
 ```
 
-To download the seeds for the classifier, you'll need a Facebook app with the proper permissions and you'll run the seed command like this:
+We used to use seeds collceted via the Facebook API to build the model, but that hasn't worked for more than a year. To seed the classifier, provide examples of political ad texts and non-political ad texts, following the formats in data/en-US/seeds.json. You might gather these from Facebook's ad library (if it exists in your country) or from tweets.
 
-```sh
-FACEBOOK_APP_ID=whatever FACEBOOK_APP_SECRET=whatever DATABASE_URL=postgres://whatever/facebook_ads ./classify seed en-US
-```
+Otherwise, building the model now would just on votes in the extension and suppressions in the admin, which would take much, much longer.
 
-Alternatively, you can build the model without seeds, relying instead just on votes in the extension and suppressions in the admin. And to build the classifier you'll want to run:
+To build the classifier you'll want to run:
 
 ```sh
 pipenv run ./classify build

@@ -59,7 +59,7 @@ def parse_waist_json(ctx):
         targets = parse_one_waist_json(targeting)
 
         # TODO: it appears there are never multiple distinct JSONs for one ad (besides diff profile_picture_url query strings and diff date formats)
-        # look at Cuyler's code from FB listing all the possibilities
+        # look at Thanos's code from FB listing all the possibilities
 
         update = {
             "id": record["id"],
@@ -93,11 +93,18 @@ def parse_one_waist_json(targeting):
                 targets += [["List", ""]]
             elif elem["waist_ui_type"] == "CUSTOM_AUDIENCES_ENGAGEMENT_VIDEO":  # new to Python
                 targets += [["Activity on the Facebook Family", "video"]] # https://www.facebook.com/business/help/221146184973131?id=2469097953376494
-
-
-
             else:
                 print("UNKNOWN waist UI type: {}".format(elem["waist_ui_type"]))
+                # haven't seen these yet.
+                # CUSTOM_AUDIENCES_OFFLINE
+                # CUSTOM_AUDIENCES_MOBILE_APP
+                # CUSTOM_AUDIENCES_ENGAGEMENT_LEAD_GEN
+                # CUSTOM_AUDIENCES_ENGAGEMENT_CANVAS
+                # CUSTOM_AUDIENCES_ENGAGEMENT_EVENT
+                # CUSTOM_AUDIENCES_UNRESOLVED
+                # CUSTOM_AUDIENCES_STORE_VISITS
+
+
         elif elem["__typename"] ==  "WAISTUIAgeGenderType":
             # {"__typename"=>"WAISTUIAgeGenderType", "waist_ui_type"=>"AGE_GENDER", "age_min"=>23, "age_max"=>53, "gender"=>"ANY",  "id"=>"V0FJU1RVSUFnZUdlbmRlclR5cGU6MjM1Mw==", "serialized_data"=>"{\"age_min\":23,\"age_max\":53,\"gender\":null}",}
             targets += [
@@ -145,4 +152,13 @@ def parse_one_waist_json(targeting):
             targets += ["Education", elem["employer_name"]]
         else:
             print("Unknown WAIST type {}".format(elem["__typename"]))
+
+            # no examples of these yet
+            # WAISTUIActionableInsightsType
+            # WAISTUIBrandedContentWithPageType
+            # WAISTUICollaborativeAdType
+            # WAISTUIDPAType
+            # WAISTUIRelationshipType
+            # WAISTUIJobTitleType
+
     return [t for t in targets if t]

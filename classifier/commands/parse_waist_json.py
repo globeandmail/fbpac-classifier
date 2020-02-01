@@ -58,8 +58,8 @@ def parse_waist_json(ctx):
 
         targets = parse_one_waist_json(targeting)
 
-        # TODO: it appears there are never multiple distinct JSONs for one ad (besides diff profile_picture_url query strings and diff date formats)
-        # look at Thanos's code from FB listing all the possibilities
+        # it appears there are never multiple distinct JSONs for one ad (besides diff profile_picture_url query strings and diff date formats)
+        # TODO: once I have examples, implement unimplemented 
 
         update = {
             "id": record["id"],
@@ -67,7 +67,7 @@ def parse_waist_json(ctx):
         }
         updates.append(update)
         out = "Parsed {pid[id]} ({info[idx]} of {info[length]}) with {pid[targets]}"
-        print(out.format(pid=update, info={"length": length, "idx": idx}))
+        # print(out.format(pid=update, info={"length": length, "idx": idx}))
 
         if len(updates) >= 100 and True:
             DB.bulk_query(query, updates)
@@ -95,7 +95,7 @@ def parse_one_waist_json(targeting):
                 targets += [["Activity on the Facebook Family", "video"]] # https://www.facebook.com/business/help/221146184973131?id=2469097953376494
             else:
                 print("UNKNOWN waist UI type: {}".format(elem["waist_ui_type"]))
-                # haven't seen these yet.
+                # haven't seen these yet. # unimplemented
                 # CUSTOM_AUDIENCES_OFFLINE
                 # CUSTOM_AUDIENCES_MOBILE_APP
                 # CUSTOM_AUDIENCES_ENGAGEMENT_LEAD_GEN
@@ -104,6 +104,8 @@ def parse_one_waist_json(targeting):
                 # CUSTOM_AUDIENCES_UNRESOLVED
                 # CUSTOM_AUDIENCES_STORE_VISITS
 
+            if "dfca_data" in elem: 
+                targets += [["Audience Owner", elem["dfca_data"]["ca_owner_name"]]]
 
         elif elem["__typename"] ==  "WAISTUIAgeGenderType":
             # {"__typename"=>"WAISTUIAgeGenderType", "waist_ui_type"=>"AGE_GENDER", "age_min"=>23, "age_max"=>53, "gender"=>"ANY",  "id"=>"V0FJU1RVSUFnZUdlbmRlclR5cGU6MjM1Mw==", "serialized_data"=>"{\"age_min\":23,\"age_max\":53,\"gender\":null}",}
@@ -122,7 +124,7 @@ def parse_one_waist_json(targeting):
             granularity = json.loads(elem["serialized_data"])["location_granularity"] 
             if granularity == "city":
                 *city, state = elem["location_name"].split(",")
-                locs = [["City", city], ["State", state]]
+                locs = [["City", ','.join(city)], ["State", state]]
             elif granularity == "region":
                 locs = [["Region", elem["location_name"]]]
             elif granularity == "country":
@@ -149,11 +151,13 @@ def parse_one_waist_json(targeting):
             targets += [["Like", "Friend Likes Page"]]
             pass
         elif elem["__typename"] ==  "WAISTUIWorkEmployerType":
-            targets += ["Education", elem["employer_name"]]
+            targets += ["Employer", elem["employer_name"]]
+        elif elem["__typename"] ==  "WAISTUIRelationshipType":
+            targets += ["Relationship Status", elem["relationship_status"]]
         else:
             print("Unknown WAIST type {}".format(elem["__typename"]))
 
-            # no examples of these yet
+            # no examples of these yet #unimplemented
             # WAISTUIActionableInsightsType
             # WAISTUIBrandedContentWithPageType
             # WAISTUICollaborativeAdType

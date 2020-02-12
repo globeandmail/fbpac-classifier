@@ -12,6 +12,8 @@ from .commands.add_seeds_from_id import add_seeds_from_id
 from .commands.get_models import get_models
 from .commands.listbuilding_fundraising_classify import listbuilding_fundraising_classify
 from .commands.analyze import analyze
+from .commands.parse_waist_json import parse_waist_json
+
 @click.group()
 @click.option("--base", default="data", help="Path to the data directory")
 @click.pass_context
@@ -32,3 +34,4 @@ cli.add_command(add_seeds_from_id)
 cli.add_command(get_models)
 cli.add_command(analyze)
 cli.add_command(listbuilding_fundraising_classify)
+cli.add_command(parse_waist_json)

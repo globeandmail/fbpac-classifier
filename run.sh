@@ -25,12 +25,14 @@ else
     ./classify get_models && \
     ./classify classify --every && \
     ./classify entities && \
-    ./classify listbuilding_fundraising_classify
+    ./classify listbuilding_fundraising_classify && \
+    ./classify parse_waist_json
     else
     echo "Running hourly training"
     ./classify get_models && \
     ./classify classify && \
     ./classify entities && \
-    ./classify listbuilding_fundraising_classify
+    ./classify listbuilding_fundraising_classify && \
+    ./classify parse_waist_json
     fi
 fi

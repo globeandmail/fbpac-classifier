@@ -29,14 +29,14 @@ def parse_waist_json(ctx):
     """
 
     # takes 8s locally
-    query = "select * from fbpac_ads where targets = '[]' and targeting is not null and targeting ilike '{%'"
+    query = "select * from ads where targets = '[]' and targeting is not null and targeting ilike '{%'"
 
     total = "select count(*) as length from ({}) as t1;"
     length = DB.query(total.format(query))[0]["length"]
     records = DB.query(query)
     print("found {} ads".format(length))
     updates = []
-    query = "update fbpac_ads set targets=:targets where id=:id"
+    query = "update ads set targets=:targets where id=:id"
     idx = 0
     for record in records:
         idx += 1
